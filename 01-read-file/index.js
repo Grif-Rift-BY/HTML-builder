@@ -1,8 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-(() => {
-  fs.readFile(path.join(__dirname,'text.txt'), 'utf-8', (error, data) => {
-    if (error) console.log(error);
-    process.stdout.write('\n' + data);
-  })
+const sourceFilePath = path.join(__dirname, 'text.txt');
+(async () => {
+  const readableStream = await fs.createReadStream(sourceFilePath, 'utf-8');
+  const { stdout } = process;
+  let data = ''
+  readableStream.on('data', chunck => data += chunck);
+  readableStream.on('end', () => stdout.write(data + '\n'));
+  readableStream.on('error', () => console.log('FILE NOT FOUND'));
 })();
