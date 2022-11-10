@@ -6,12 +6,13 @@ const path = require('path');
   process.stdin.on('data', data => {
     if (data.toString().trim() !== 'exit') writeStream.write(data);
     else {
-      console.log('\x1b[31m' + '>>>>> ROCKETS LAUNCHED');
+      console.log('\x1b[31m' + '>>>>> BYE-BYE!');
       process.exit();
     }
   });
+
     process.on('SIGINT', () => {
-    console.log('\x1b[31m' + '>>>>> ROCKETS LAUNCHED');
+    console.log('\x1b[31m' + '>>>>> BYE-BYE!');
     process.exit();
   });
 })();
